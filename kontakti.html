@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="sq" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KONTAKTI | RATKOCI - Komunikimi & Lokacioni</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        ratkoc: {
+                            gold: '#D9B969',
+                            red: '#E11D48',
+                            darker: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: #fff; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        
+        .glass-nav { 
+            backdrop-filter: blur(30px); 
+            background: rgba(5, 5, 5, 0.7); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+        
+        #mobile-menu-overlay { 
+            clip-path: circle(0% at 95% 5%); 
+            transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1); 
+            background: linear-gradient(135deg, #050505 0%, #0a0a0b 100%); 
+            pointer-events: none;
+        }
+        #mobile-menu-overlay.active { 
+            clip-path: circle(150% at 95% 5%); 
+            pointer-events: all;
+        }
+
+        .contact-input { 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 1rem; 
+            padding: 1.2rem; 
+            color: white; 
+            transition: all 0.3s ease; 
+            width: 100%; 
+        }
+        .contact-input:focus { border-color: #D9B969; background: rgba(217, 185, 105, 0.05); outline: none; }
+        
+        .info-card { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-radius: 2rem; 
+            padding: 2.5rem; 
+            transition: all 0.4s ease; 
+        }
+        .info-card:hover { border-color: #D9B969; transform: translateY(-5px); }
+
+        .gradient-text { 
+            background: linear-gradient(to right, #D9B969, #fff, #D9B969); 
+            -webkit-background-clip: text; background-clip: text; color: transparent; 
+            background-size: 200% auto; animation: shine 5s linear infinite; 
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        iframe { filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%); border-radius: 2rem; }
+        
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #D9B969; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="glass-nav fixed w-full z-[200] px-6 py-5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tracking-tighter flex items-center gap-3">
+                <div class="w-10 h-10 bg-ratkoc-gold rounded-xl flex items-center justify-center text-black text-lg font-bold transform hover:rotate-12 transition">R</div>
+                <span class="hidden sm:inline font-black">RATKOCI</span>
+            </a>
+
+            <div class="flex items-center gap-6">
+                <a href="dhurimi_gjakut.html" class="hidden lg:block bg-ratkoc-red/10 border border-ratkoc-red/20 px-6 py-2.5 rounded-full text-ratkoc-red text-xs font-bold hover:bg-ratkoc-red hover:text-white transition-all tracking-widest uppercase">
+                    Dhurimi Gjakut
+                </a>
+                
+                <button id="menu-btn" class="relative z-[210] flex flex-col gap-1.5 p-2 outline-none">
+                    <div id="bar1" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                    <div id="bar2" class="w-6 h-0.5 bg-ratkoc-gold ml-auto transition-all duration-300"></div>
+                    <div id="bar3" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[150] flex flex-col justify-center px-8 md:px-20 overflow-y-auto custom-scroll py-24">
+        <div class="grid lg:grid-cols-2 gap-10 w-full max-w-7xl mx-auto">
+            <div class="flex flex-col space-y-2">
+                <p class="text-ratkoc-gold text-[10px] font-bold tracking-[0.5em] mb-4 uppercase">Eksploro Ratkocin</p>
+                <nav id="main-nav-links" class="flex flex-col space-y-1">
+                    <a href="index.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">BALLINA</a>
+                    <a href="gjeografia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GJEOGRAFIA</a>
+                    <a href="agrokultura.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">EKONOMIA</a>
+                    <a href="historia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">HISTORIA</a>
+                    <a href="komuniteti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KOMUNITETI</a>
+                    <a href="transporti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">TRANSPORTI</a>
+                    <a href="vizito.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">VIZITO</a>
+                    <a href="galeria.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GALERIA</a>
+                    <a href="kontakti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KONTAKTI</a>
+                </nav>
+            </div>
+            
+            <div class="hidden lg:flex flex-col justify-center space-y-10 border-l border-white/5 pl-20">
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Komunikimi</h4>
+                    <p class="text-gray-400 text-xl font-light leading-relaxed">Jemi këtu për t'iu përgjigjur çdo kërkese tuaj rreth Drinasit.</p>
+                </div>
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Social Media</h4>
+                    <div class="flex gap-6 text-2xl">
+                        <a href="#"><i class="fab fa-facebook-f hover:text-ratkoc-gold transition"></i></a>
+                        <a href="#"><i class="fab fa-instagram hover:text-ratkoc-gold transition"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-44 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h4 class="text-ratkoc-gold tracking-[0.5em] text-[10px] uppercase font-bold mb-4">Komunikimi</h4>
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-6">Mbetemi në <span class="gradient-text">Lidhje</span></h1>
+            <p class="max-w-2xl mx-auto text-gray-500 font-light text-lg">Keni pyetje për produktet tona agrare apo dëshironi të vizitoni Drinasin? Na shkruani direkt.</p>
+        </div>
+    </section>
+
+    <section class="pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            <div class="info-card">
+                <h3 class="text-2xl font-bold mb-8 flex items-center gap-3 font-black">
+                    <span class="w-1.5 h-6 bg-ratkoc-gold"></span> 
+                    DËRGONI MESAZH
+                </h3>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block ml-2">Emri Plotë</label>
+                            <input type="text" placeholder="Filan Fisteku" class="contact-input">
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block ml-2">Email</label>
+                            <input type="email" placeholder="emri@shembull.com" class="contact-input">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block ml-2">Subjekti</label>
+                        <select class="contact-input appearance-none">
+                            <option>Informata Agrare</option>
+                            <option>Partneritet Biznesi</option>
+                            <option>Vizitë Turistike</option>
+                            <option>Tjetër</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block ml-2">Mesazhi Juaj</label>
+                        <textarea rows="5" placeholder="Si mund t'ju ndihmojmë?" class="contact-input"></textarea>
+                    </div>
+                    <button class="w-full py-5 bg-ratkoc-gold text-black font-black uppercase tracking-widest rounded-xl hover:bg-white transition-all duration-300 transform active:scale-95 shadow-xl shadow-ratkoc-gold/10">
+                        Dërgo Tani
+                    </button>
+                </form>
+            </div>
+
+            <div class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="info-card">
+                        <i class="fas fa-envelope text-ratkoc-gold text-2xl mb-4"></i>
+                        <h4 class="font-black text-xs uppercase tracking-widest">Email Zyrtar</h4>
+                        <p class="text-gray-400 text-sm mt-2 italic">info@ratkoc.com</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-location-dot text-ratkoc-gold text-2xl mb-4"></i>
+                        <h4 class="font-black text-xs uppercase tracking-widest">Lokacioni</h4>
+                        <p class="text-gray-400 text-sm mt-2 font-medium">Ratkoc, Rahovec, 21000</p>
+                    </div>
+                </div>
+
+                <div class="h-[420px] w-full info-card p-0 overflow-hidden relative border-none shadow-2xl">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11796.843603417726!2d20.5230985!3d42.3380486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13539564858004f1%3A0xc660d2e8e3d06282!2sRatkoc!5e0!3m2!1ssq!2s!4v1700000000000" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5 opacity-40">
+        <p class="text-[10px] tracking-[0.5em] uppercase font-bold">© 2026 Ratkoci Mega Experience - Kontakti</p>
+    </footer>
+
+    <script>
+        // Logjika e Menusë dhe Fshehja e Linkut Aktiv
+        const menuBtn = document.getElementById('menu-btn');
+        const overlay = document.getElementById('mobile-menu-overlay');
+        const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+
+        // Fsheh linkun e faqes aktuale
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll('#main-nav-links a').forEach(link => {
+            if(link.getAttribute('href') === currentPath) {
+                link.style.display = 'none';
+            }
+        });
+
+        menuBtn.addEventListener('click', () => {
+            const isActive = overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+            
+            if(isActive) {
+                bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+            } else {
+                bars.forEach(bar => bar.style.transform = 'none');
+                bars[1].style.opacity = '1';
+            }
+        });
+
+        // GSAP Animations
+        gsap.from(".info-card", {
+            opacity: 0, 
+            y: 50, 
+            stagger: 0.2, 
+            duration: 1.2, 
+            ease: "power4.out",
+            delay: 0.5
+        });
+
+        gsap.from("h1", {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: "power3.out"
+        });
+    </script>
+</body>
+</html>

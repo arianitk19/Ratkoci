@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="sq" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GALERIA | RATKOCI</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        ratkoc: {
+                            gold: '#D9B969',
+                            red: '#E11D48',
+                            darker: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: #fff; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        
+        .glass-nav {
+            backdrop-filter: blur(30px);
+            background: rgba(5, 5, 5, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #mobile-menu-overlay {
+            clip-path: circle(0% at 95% 5%);
+            transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+            background: linear-gradient(135deg, #050505 0%, #0a0a0b 100%);
+            pointer-events: none;
+        }
+        #mobile-menu-overlay.active { 
+            clip-path: circle(150% at 95% 5%); 
+            pointer-events: all;
+        }
+
+        .gallery-card { 
+            position: relative; border-radius: 2rem; overflow: hidden; cursor: pointer; 
+            border: 1px solid rgba(255,255,255,0.05); background: #0a0a0a; transition: all 0.5s ease;
+        }
+        .gallery-card:hover { transform: translateY(-10px); border-color: rgba(217, 185, 105, 0.4); }
+        .gallery-card img { transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; width: 100%; object-fit: cover; }
+        .gallery-card:hover img { transform: scale(1.08); }
+        
+        .card-overlay { 
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%); 
+            opacity: 0; transition: all 0.4s ease; display: flex; align-items: flex-end; padding: 2rem; 
+        }
+        .gallery-card:hover .card-overlay { opacity: 1; }
+
+        .filter-btn { 
+            padding: 0.8rem 1.8rem; border-radius: 99px; font-size: 0.7rem; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 0.15em; transition: all 0.3s ease; 
+            border: 1px solid rgba(255,255,255,0.1); color: #666; 
+        }
+        .filter-btn.active { background: #D9B969; color: #000; border-color: #D9B969; box-shadow: 0 10px 20px rgba(217,185,105,0.2); }
+
+        #lightbox { 
+            display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.98); 
+            backdrop-filter: blur(15px); align-items: center; justify-content: center; padding: 2rem; 
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #D9B969, #fff, #D9B969);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            background-size: 200% auto; animation: shine 5s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #D9B969; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="glass-nav fixed w-full z-[200] px-6 py-5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tracking-tighter flex items-center gap-3">
+                <div class="w-10 h-10 bg-ratkoc-gold rounded-xl flex items-center justify-center text-black text-lg group transform hover:rotate-12 transition">R</div>
+                <span class="hidden sm:inline">RATKOCI</span>
+            </a>
+
+            <div class="flex items-center gap-6">
+                <a href="dhurimi_gjakut.html" class="hidden lg:block bg-ratkoc-red/10 border border-ratkoc-red/20 px-6 py-2.5 rounded-full text-ratkoc-red text-xs font-bold hover:bg-ratkoc-red hover:text-white transition-all tracking-widest uppercase">Dhurimi Gjakut</a>
+                
+                <button id="menu-btn" class="relative z-[210] flex flex-col gap-1.5 p-2 outline-none">
+                    <div id="bar1" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                    <div id="bar2" class="w-6 h-0.5 bg-ratkoc-gold ml-auto transition-all duration-300"></div>
+                    <div id="bar3" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[150] flex flex-col justify-center px-8 md:px-20 overflow-y-auto custom-scroll py-24">
+        <div class="grid lg:grid-cols-2 gap-10 w-full max-w-7xl mx-auto">
+            <div class="flex flex-col space-y-2">
+                <p class="text-ratkoc-gold text-[10px] font-bold tracking-[0.5em] mb-4 uppercase">Eksploro Ratkocin</p>
+                <nav id="main-nav-links" class="flex flex-col space-y-1">
+                    <a href="index.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">BALLINA</a>
+                    <a href="gjeografia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GJEOGRAFIA</a>
+                    <a href="agrokultura.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">EKONOMIA</a>
+                    <a href="historia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">HISTORIA</a>
+                    <a href="komuniteti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KOMUNITETI</a>
+                    <a href="transporti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">TRANSPORTI</a>
+                    <a href="vizito.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">VIZITO</a>
+                    <a href="galeria.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GALERIA</a>
+                    <a href="kontakti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KONTAKTI</a>
+                </nav>
+                <div class="pt-8 block lg:hidden">
+                    <a href="dhurimi_gjakut.html" class="text-ratkoc-red font-bold tracking-widest text-xs border-b border-ratkoc-red/30 pb-2">DHURIMI I GJAKUT →</a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex flex-col justify-center space-y-10 border-l border-white/5 pl-20">
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Informatë</h4>
+                    <p class="text-gray-400 text-xl font-light leading-relaxed">Zbuloni bukuritë e Drinasit përmes arkivës sonë vizuale të kuruar me kujdes.</p>
+                </div>
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Social Media</h4>
+                    <div class="flex gap-6 text-2xl">
+                        <a href="#"><i class="fab fa-facebook-f hover:text-ratkoc-gold transition"></i></a>
+                        <a href="#"><i class="fab fa-instagram hover:text-ratkoc-gold transition"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-44 pb-16 px-6 text-center">
+        <h4 class="text-ratkoc-gold tracking-[0.5em] text-[10px] uppercase font-bold mb-4 opacity-0" id="header-sub">Arkiva Vizuale</h4>
+        <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-8 opacity-0" id="header-title">Eksperienca <span class="gradient-text">Drinas</span></h1>
+        
+        <div class="flex flex-wrap justify-center gap-3 mt-8 opacity-0" id="filters">
+            <button class="filter-btn active" data-filter="all">Të Gjitha</button>
+            <button class="filter-btn" data-filter="qendra">Qendra</button>
+            <button class="filter-btn" data-filter="agrokultura">Ekonomia</button>
+            <button class="filter-btn" data-filter="natyra">Natyra</button>
+            <button class="filter-btn" data-filter="historia">Historia</button>
+        </div>
+    </section>
+
+    <section class="pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]" id="gallery-grid">
+            <div class="gallery-card md:col-span-2 md:row-span-2 qendra" data-img="Images/nata.jpg">
+                <img src="Images/nata.jpg" alt="Ratkoci Night">
+                <div class="card-overlay">
+                    <div>
+                        <span class="text-ratkoc-gold text-[10px] font-bold tracking-widest uppercase">Qendra</span>
+                        <h3 class="text-2xl font-black uppercase mt-1">Ratkoci Gjatë Natës</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-card agrokultura" data-img="Images/ujispeca.jpg">
+                <img src="Images/ujispeca.jpg" alt="Agriculture">
+                <div class="card-overlay"><h3 class="text-lg font-bold uppercase">Zemra e Ekonomisë</h3></div>
+            </div>
+            <div class="gallery-card natyra" data-img="Images/ujevara.jpg">
+                <img src="Images/ujevara.jpg" alt="Nature">
+                <div class="card-overlay"><h3 class="text-lg font-bold uppercase">Bregu i Drinit</h3></div>
+            </div>
+            <div class="gallery-card historia" data-img="Images/498340482_1028158106099386_2594047368753419611_n.jpg">
+                <img src="Images/498340482_1028158106099386_2594047368753419611_n.jpg" alt="History">
+                <div class="card-overlay"><h3 class="text-lg font-bold uppercase">Trashëgimia</h3></div>
+            </div>
+            <div class="gallery-card qendra" data-img="Images/484853569_972154225033108_76204884583792831_n.jpg">
+                <img src="Images/484853569_972154225033108_76204884583792831_n.jpg" alt="Urban">
+                <div class="card-overlay"><h3 class="text-lg font-bold uppercase">Pamje Urbane</h3></div>
+            </div>
+            <div class="gallery-card natyra md:col-span-2" data-img="Images/502883766_1027664876148709_3115050655975657610_n.jpg">
+                <img src="Images/502883766_1027664876148709_3115050655975657610_n.jpg" alt="Sunset">
+                <div class="card-overlay"><h3 class="text-lg font-bold uppercase">Perëndimi në Drinas</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox">
+        <button class="absolute top-8 right-8 text-white/50 hover:text-white text-5xl transition" id="close-lightbox">&times;</button>
+        <img src="" id="lightbox-img" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border border-white/10">
+    </div>
+
+    <footer class="py-10 text-center border-t border-white/5 opacity-50">
+        <p class="text-[10px] tracking-[0.5em] uppercase">© 2026 Ratkoci Mega Experience</p>
+    </footer>
+
+    <script>
+        // Logjika e Menusë dhe Fshehja e Linkut Aktiv
+        const menuBtn = document.getElementById('menu-btn');
+        const overlay = document.getElementById('mobile-menu-overlay');
+        const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+
+        // Detekto faqen aktuale dhe fsheh linkun e saj në menu
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll('#main-nav-links a').forEach(link => {
+            if(link.getAttribute('href') === currentPath) {
+                link.style.display = 'none'; // Ky rresht fsheh linkun e faqes ku jeni aktualisht
+            }
+        });
+
+        menuBtn.addEventListener('click', () => {
+            const isActive = overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+            if(isActive) {
+                bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+            } else {
+                bars.forEach(bar => bar.style.transform = 'none');
+                bars[1].style.opacity = '1';
+            }
+        });
+
+        // GSAP Animations
+        window.onload = () => {
+            const tl = gsap.timeline();
+            tl.to("#header-sub", { opacity: 1, y: 0, duration: 0.8 })
+              .to("#header-title", { opacity: 1, y: 0, duration: 1, ease: "power4.out" }, "-=0.4")
+              .to("#filters", { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
+              .from(".gallery-card", { opacity: 0, scale: 0.9, y: 30, stagger: 0.1, duration: 0.8, ease: "power2.out" }, "-=0.4");
+        };
+
+        // Filtering Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.gallery-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    if (filter === 'all' || card.classList.contains(filter)) {
+                        gsap.to(card, { opacity: 1, scale: 1, duration: 0.4, display: 'block' });
+                    } else {
+                        gsap.to(card, { opacity: 0, scale: 0.8, duration: 0.4, display: 'none' });
+                    }
+                });
+            });
+        });
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                lightboxImg.src = card.dataset.img;
+                lightbox.style.display = 'flex';
+                gsap.fromTo(lightboxImg, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.2)" });
+            });
+        });
+
+        document.getElementById('close-lightbox').addEventListener('click', () => {
+            gsap.to(lightboxImg, { scale: 0.9, opacity: 0, duration: 0.3, onComplete: () => {
+                lightbox.style.display = 'none';
+            }});
+        });
+    </script>
+</body>
+</html>

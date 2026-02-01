@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="sq" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HISTORIA | RATKOCI - Trashëgimia dhe Lavdia</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        ratkoc: {
+                            gold: '#D9B969',
+                            red: '#E11D48',
+                            darker: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: #fff; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .glass-nav { backdrop-filter: blur(30px); background: rgba(5, 5, 5, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        #mobile-menu-overlay { 
+            clip-path: circle(0% at 95% 5%); 
+            transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1); 
+            background: linear-gradient(135deg, #050505 0%, #0a0a0b 100%); 
+            pointer-events: none; 
+        }
+        #mobile-menu-overlay.active { clip-path: circle(150% at 95% 5%); pointer-events: all; }
+
+        .bento-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 2rem; transition: all 0.5s ease; overflow: hidden; position: relative; }
+        .bento-card:hover { background: rgba(217, 185, 105, 0.05); border-color: rgba(217, 185, 105, 0.3); transform: translateY(-5px); }
+        
+        .gradient-text { background: linear-gradient(to right, #D9B969, #fff, #D9B969); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% auto; animation: shine 5s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .btn-blood-pulse { animation: pulse-red 2s infinite; background: #E11D48; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(225, 29, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+
+        .sepia-effect { filter: grayscale(100%) brightness(0.8); transition: all 0.6s ease; }
+        .bento-card:hover .sepia-effect { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <nav class="glass-nav fixed w-full z-[200] px-6 py-5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tracking-tighter flex items-center gap-3">
+                <div class="w-10 h-10 bg-ratkoc-gold rounded-xl flex items-center justify-center text-black text-lg font-bold transform hover:rotate-12 transition">R</div>
+                <span class="hidden sm:inline font-black">RATKOCI</span>
+            </a>
+
+            <div class="flex items-center gap-6">
+                <a href="dhurimi_gjakut.html" class="btn-blood-pulse px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-white transition hover:scale-105">
+                    <i class="fas fa-droplet mr-1"></i> 5 Shkurti
+                </a>
+                
+                <button id="menu-btn" class="relative z-[210] flex flex-col gap-1.5 p-2 outline-none">
+                    <div id="bar1" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                    <div id="bar2" class="w-6 h-0.5 bg-ratkoc-gold ml-auto transition-all duration-300"></div>
+                    <div id="bar3" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[150] flex flex-col justify-center px-8 md:px-20 overflow-y-auto py-24">
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-10">
+            <div class="flex flex-col space-y-2">
+                <p class="text-ratkoc-gold text-[10px] font-bold tracking-[0.5em] mb-4 uppercase">Eksploro</p>
+                <nav id="main-nav-links" class="flex flex-col space-y-1">
+                    <a href="index.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">BALLINA</a>
+                    <a href="gjeografia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GJEOGRAFIA</a>
+                    <a href="agrokultura.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">EKONOMIA</a>
+                    <a href="historia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">HISTORIA</a>
+                    <a href="komuniteti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KOMUNITETI</a>
+                    <a href="transporti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">TRANSPORTI</a>
+                    <a href="vizito.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">VIZITO</a>
+                    <a href="galeria.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GALERIA</a>
+                    <a href="kontakti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KONTAKTI</a>
+                </nav>
+            </div>
+            <div class="hidden lg:flex flex-col justify-center space-y-10 border-l border-white/5 pl-20">
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Trashëgimia</h4>
+                    <p class="text-gray-400 text-xl font-light leading-relaxed italic">"Një popull që nderon të kaluarën, ndërton të ardhmen."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="relative h-[85vh] flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0 scale-105">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/60 to-[#050505] z-10"></div>
+            <img src="https://images.unsplash.com/photo-1599940824399-b87987cb9720?auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-40 grayscale" id="hero-img">
+        </div>
+        <div class="relative z-20 text-center px-6">
+            <h4 class="text-ratkoc-gold tracking-[0.6em] text-[10px] md:text-xs uppercase font-bold mb-4 opacity-0" id="hero-sub">Rrëfimi i Një Toke të Lashtë</h4>
+            <h1 class="text-5xl md:text-[120px] font-black leading-none tracking-tighter opacity-0" id="hero-title">
+                RRËNJËT E <span class="gradient-text">LAVDISË</span>
+            </h1>
+            <p class="max-w-3xl mx-auto mt-10 text-gray-400 text-base md:text-xl font-light opacity-0 leading-relaxed" id="hero-p">
+                Nga dardanët antikë te kalitja e lirisë në Drinas. Historia e Ratkocit është dëshmia e qëndresës dhe identitetit tonë kombëtar.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 relative z-30">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <div class="bento-card md:col-span-8 p-10 md:p-16 flex flex-col justify-center">
+                <span class="text-xs font-bold text-ratkoc-gold tracking-widest uppercase mb-6">Antikiteti</span>
+                <h2 class="text-3xl md:text-5xl font-black mb-6 uppercase leading-tight">Dardanët dhe<br><span class="text-white/60">Toka e Drinasit</span></h2>
+                <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                    Ratkoci shtrihet në një zonë me pasuri arkeologjike. Gjetjet dëshmojnë për një vendbanim të hershëm dardan, ku pjelloria e tokës buzë Drinit krijoi kushtet për një qytetërim të hershëm.
+                </p>
+                <div class="flex gap-4 text-[10px] font-black tracking-widest uppercase">
+                    <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/10 italic">#Iliria</div>
+                    <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/10 italic">#Dardania</div>
+                </div>
+            </div>
+
+            <div class="bento-card md:col-span-4 p-10 flex flex-col justify-between group">
+                <div class="relative z-10 text-center py-10">
+                    <i class="fas fa-monument text-ratkoc-gold text-5xl mb-6 transform group-hover:scale-110 transition"></i>
+                    <h3 class="text-2xl font-bold mb-2 uppercase">2000+ VITE</h3>
+                    <p class="text-gray-500 text-xs tracking-widest font-bold uppercase">Histori e Pandërprerë</p>
+                </div>
+            </div>
+
+            <div class="bento-card md:col-span-12 p-10 md:p-16 border-ratkoc-red/10 overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center gap-2 bg-ratkoc-red/10 px-4 py-1 rounded-full mb-6">
+                            <span class="w-2 h-2 bg-ratkoc-red rounded-full animate-pulse"></span>
+                            <span class="text-ratkoc-red text-[10px] font-black uppercase tracking-widest">1998 - 1999</span>
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase">Zjarri i Lirisë</h2>
+                        <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                            Gjatë luftës së UÇK-së, Ratkoci ishte epiqendër e qëndresës. Popullata u bë mburojë e pathyeshme, duke ofruar bukë, strehë dhe djemtë më të mirë për lirinë e Kosovës.
+                        </p>
+                        <div class="flex gap-8">
+                            <div><span class="block text-2xl font-black text-ratkoc-red uppercase">UÇK</span><span class="text-gray-500 text-[10px] uppercase font-bold">Brigada 124</span></div>
+                            <div class="w-px h-10 bg-white/10"></div>
+                            <div><span class="block text-2xl font-black text-ratkoc-red uppercase">Liria</span><span class="text-gray-500 text-[10px] uppercase font-bold">Sakrificë Supreme</span></div>
+                        </div>
+                    </div>
+                    <div class="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="Images/mesifshatit.jpg" class="w-full h-full object-cover sepia-effect">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card md:col-span-6 p-10 flex flex-col justify-center">
+                <h3 class="text-xl font-bold mb-4 uppercase">Emri dhe Etimologjia</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Referencat historike lidhen me pozicionin strategjik mes maleve dhe lumit. Sot, emërtimi simbolik "Drinas" nderon lidhjen tonë shpirtërore me rrjedhën e lumit Drin.</p>
+            </div>
+
+            <div class="bento-card md:col-span-6 p-10 bg-ratkoc-gold/5 flex items-center">
+                <p class="text-xl md:text-2xl font-black uppercase italic leading-tight">"Historia nuk është vetëm ajo që kemi qenë, por ajo që po ndërtojmë sot."</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5 opacity-30">
+        <p class="text-[10px] tracking-[0.5em] uppercase font-bold">© 2026 Ratkoci Mega Experience - Trashëgimia</p>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const overlay = document.getElementById('mobile-menu-overlay');
+        const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+
+        // Smart Hide Link (Identik me faqet e tjera)
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll('#main-nav-links a').forEach(link => {
+            if(link.getAttribute('href') === currentPath) link.style.display = 'none';
+        });
+
+        menuBtn.addEventListener('click', () => {
+            const isActive = overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+            if(isActive) {
+                bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+            } else {
+                bars.forEach(bar => bar.style.transform = 'none');
+                bars[1].style.opacity = '1';
+            }
+        });
+
+        window.onload = () => {
+            const tl = gsap.timeline();
+            tl.to("#hero-sub", { opacity: 1, y: 0, duration: 1, ease: "expo.out" })
+              .to("#hero-title", { opacity: 1, y: 0, duration: 1.2, ease: "power4.out" }, "-=0.6")
+              .to("#hero-p", { opacity: 1, duration: 1 }, "-=0.8");
+            
+            gsap.from(".bento-card", {
+                scrollTrigger: { trigger: ".bento-card", start: "top 85%" },
+                opacity: 0, y: 40, stagger: 0.1, duration: 1, ease: "power3.out"
+            });
+
+            gsap.to("#hero-img", {
+                scrollTrigger: { trigger: "body", start: "top top", end: "bottom top", scrub: true },
+                scale: 1.2, y: 100
+            });
+        };
+    </script>
+</body>
+</html>
