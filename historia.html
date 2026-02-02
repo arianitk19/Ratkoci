@@ -56,6 +56,11 @@
 
         .sepia-effect { filter: grayscale(100%) brightness(0.8); transition: all 0.6s ease; }
         .bento-card:hover .sepia-effect { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
+
+        /* Custom scrollbar per dritaren modale */
+        #history-modal ::-webkit-scrollbar { width: 5px; }
+        #history-modal ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        #history-modal ::-webkit-scrollbar-thumb { background: #D9B969; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -109,7 +114,7 @@
     <section class="relative h-[85vh] flex items-center justify-center overflow-hidden pt-20">
         <div class="absolute inset-0 z-0 scale-105">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/60 to-[#050505] z-10"></div>
-            <img src="Images/uqk.jpg" class="w-full h-full object-cover opacity-40 grayscale" id="hero-img">
+            <img src="Images/lufta.jpg" class="w-full h-full object-cover opacity-40 grayscale" id="hero-img">
         </div>
         <div class="relative z-20 text-center px-6">
             <h4 class="text-ratkoc-gold tracking-[0.6em] text-[10px] md:text-xs uppercase font-bold mb-4 opacity-0" id="hero-sub">Rrëfimi i Një Toke të Lashtë</h4>
@@ -156,6 +161,12 @@
                         <p class="text-gray-300 text-lg leading-relaxed mb-8">
                             Gjatë luftës së UÇK-së, Ratkoci ishte epiqendër e qëndresës. Popullata u bë mburojë e pathyeshme, duke ofruar bukë, strehë dhe djemtë më të mirë për lirinë e Kosovës.
                         </p>
+                        
+                        <button onclick="toggleModal(true)" class="group mb-8 flex items-center gap-3 bg-ratkoc-red/20 hover:bg-ratkoc-red border border-ratkoc-red/30 px-6 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95">
+                            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-white">Historia e 4 Dëshmorëve</span>
+                            <i class="fas fa-arrow-right text-[10px] text-white group-hover:translate-x-1 transition"></i>
+                        </button>
+
                         <div class="flex gap-8">
                             <div><span class="block text-2xl font-black text-ratkoc-red uppercase">UÇK</span><span class="text-gray-500 text-[10px] uppercase font-bold">Brigada 124</span></div>
                             <div class="w-px h-10 bg-white/10"></div>
@@ -181,6 +192,63 @@
         </div>
     </section>
 
+    <div id="history-modal" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 md:p-10">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-2xl" onclick="toggleModal(false)"></div>
+        
+        <div class="relative bg-[#050505] border border-white/10 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-[2.5rem] shadow-2xl p-6 md:p-16">
+            <button onclick="toggleModal(false)" class="sticky top-0 float-right z-50 text-white/40 hover:text-ratkoc-gold bg-black/50 p-3 rounded-full backdrop-blur-md transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <div class="text-center mb-16 clear-both">
+                <h4 class="text-ratkoc-red tracking-[0.4em] text-[10px] uppercase font-bold mb-4">Lavdi Përjetshme</h4>
+                <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter">Katër Shtylla të <span class="text-ratkoc-gold">Lirisë</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-ratkoc-red/30 transition-all duration-500 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-ratkoc-gold font-black text-xl uppercase tracking-tighter leading-none">NASER V. KRASNIQI<br><span class="text-xs text-ratkoc-red opacity-60">"LEKA" (1972-1998)</span></h3>
+                        <i class="fas fa-shield-halved text-ratkoc-red/20 text-2xl group-hover:text-ratkoc-red/60 transition"></i>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed italic mb-4">"Vdekja për atdhe është krenaria më e ëmbël."</p>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <p class="text-gray-300 text-sm leading-relaxed">Emblema e rezistencës së hershme. Hapi rrugët e furnizimit me armatim dhe udhëhoqi pikën strategjike në Gradish. Ra heroikisht më 4 qershor 1998 në mbrojtje të Drinasit.</p>
+                </div>
+
+                <div class="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-ratkoc-red/30 transition-all duration-500 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-ratkoc-gold font-black text-xl uppercase tracking-tighter leading-none">SAHIT A. KRASNIQI<br><span class="text-xs text-ratkoc-red opacity-60">(1975-1999)</span></h3>
+                        <i class="fas fa-gun text-ratkoc-red/20 text-2xl group-hover:text-ratkoc-red/60 transition"></i>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed italic mb-4">Braktisi mërgimin për vijat e frontit.</p>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <p class="text-gray-300 text-sm leading-relaxed">Pjesëtar i Njësisë Speciale, u dallua në Betejën e Rahovecit. Megjithëse i plagosur në Goden, vazhdoi misionin deri në rënien heroike më 29 janar 1999 në Rogovë.</p>
+                </div>
+
+                <div class="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-ratkoc-red/30 transition-all duration-500 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-ratkoc-gold font-black text-xl uppercase tracking-tighter leading-none">VISAR M. HOTI<br><span class="text-xs text-ratkoc-red opacity-60">(1977-1999)</span></h3>
+                        <i class="fas fa-book-skull text-ratkoc-red/20 text-2xl group-hover:text-ratkoc-red/60 transition"></i>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed italic mb-4">Intelekti dhe shpirti luftarak në një ideal.</p>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <p class="text-gray-300 text-sm leading-relaxed">Studenti që asgjësoi tankun serb në Gur të Kuq. Bashkë me Safetin, zmbrapsën forcat serbe në Zatriq, ku ra në logun e nderit më 18 prill 1999.</p>
+                </div>
+
+                <div class="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-ratkoc-red/30 transition-all duration-500 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-ratkoc-gold font-black text-xl uppercase tracking-tighter leading-none">SAFET L. LATIFI<br><span class="text-xs text-ratkoc-red opacity-60">(1978-1999)</span></h3>
+                        <i class="fas fa-hand-fist text-ratkoc-red/20 text-2xl group-hover:text-ratkoc-red/60 transition"></i>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed italic mb-4">Betohet për liri pas çdo sakrifice.</p>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <p class="text-gray-300 text-sm leading-relaxed">U dallua në mbrojtjen e Fortesës dhe Zatriqit. Ra heroikisht më 18 prill 1999, duke mbetur simbol i vëllazërisë dhe gardian i përjetshëm i lirisë.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="py-10 text-center border-t border-white/5 opacity-30">
         <p class="text-[10px] tracking-[0.5em] uppercase font-bold">© 2026 Ratkoci Mega Experience - Trashëgimia</p>
     </footer>
@@ -190,7 +258,29 @@
         const overlay = document.getElementById('mobile-menu-overlay');
         const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
 
-        // Smart Hide Link (Identik me faqet e tjera)
+        // Funksioni për Modal
+        function toggleModal(show) {
+            const modal = document.getElementById('history-modal');
+            if(show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                gsap.fromTo(modal.querySelector('.relative'), 
+                    { scale: 0.9, opacity: 0, y: 30 }, 
+                    { scale: 1, opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }
+                );
+                document.body.style.overflow = 'hidden';
+            } else {
+                gsap.to(modal.querySelector('.relative'), { 
+                    scale: 0.9, opacity: 0, y: 30, duration: 0.4, ease: "expo.in", onComplete: () => {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        }
+
+        // Smart Hide Link
         const currentPath = window.location.pathname.split("/").pop() || "index.html";
         document.querySelectorAll('#main-nav-links a').forEach(link => {
             if(link.getAttribute('href') === currentPath) link.style.display = 'none';
@@ -217,7 +307,7 @@
             
             gsap.from(".bento-card", {
                 scrollTrigger: { trigger: ".bento-card", start: "top 85%" },
-                opacity: 1, y: 40, stagger: 0.1, duration: 1, ease: "power3.out"
+                opacity: 0, y: 40, stagger: 0.1, duration: 1, ease: "power3.out"
             });
 
             gsap.to("#hero-img", {
@@ -227,5 +317,4 @@
         };
     </script>
 </body>
-
 </html>
