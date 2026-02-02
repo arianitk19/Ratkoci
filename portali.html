@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html lang="sq" class="scroll-smooth">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>METROPOL RATKOCI | V16 ELITE SYSTEM</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: { gold: '#D4AF37', dark: '#030303', card: '#0a0a0a' },
+
+                    animation: { 'shimmer': 'shimmer 2s infinite', 'float': 'float 3s ease-in-out infinite' },
+
+                    keyframes: {
+
+                        shimmer: { '0%': { opacity: 0.5 }, '50%': { opacity: 1 }, '100%': { opacity: 0.5 } },
+
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-5px)' } }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+
+        body { background: #030303; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        .bento-node { background: rgba(15, 15, 15, 0.6); border: 1px solid rgba(255,255,255,0.03); border-radius: 2rem; backdrop-filter: blur(20px); transition: 0.3s; height: 100%; }
+
+        .bento-node:hover { border-color: #D4AF37; transform: translateY(-3px); box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.1); }
+
+        .search-input { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); }
+
+        .search-input:focus { border-color: #D4AF37; outline: none; background: rgba(255,255,255,0.08); }
+
+    </style>
+
+</head>
+
+<body class="antialiased pb-20">
+
+
+
+    <header class="sticky top-0 z-[100] border-b border-white/5 bg-black/60 backdrop-blur-3xl px-6 py-4">
+
+        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+
+            <div class="flex items-center gap-3">
+
+                <div class="h-10 w-10 bg-gold rounded-xl flex items-center justify-center shadow-lg shadow-gold/20">
+
+                    <i class="fas fa-microchip text-black"></i>
+
+                </div>
+
+                <h1 class="text-xl font-black tracking-tighter uppercase italic text-white">Metropol<span class="text-gold">Ratkoc</span></h1>
+
+            </div>
+
+            <div class="relative w-full md:w-96 group">
+
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-gold transition-colors"></i>
+
+                <input type="text" id="mainSearch" placeholder="Kërko shërbime, biznese, orare..." class="search-input w-full py-2.5 pl-12 pr-4 rounded-2xl text-xs font-bold text-white transition-all">
+
+            </div>
+
+            <div id="live-clock" class="text-xs font-mono font-black text-gold border border-gold/20 px-6 py-2.5 rounded-2xl bg-gold/5 italic">00:00:00</div>
+
+        </div>
+
+    </header>
+
+<div class="fixed bottom-8 left-8 z-[999]">
+    <a href="index.html" class="h-20 w-20 bg-black border-2 border-white/10 rounded-2xl flex items-center justify-center shadow-2xl hover:border-gold hover:scale-110 transition-all group overflow-hidden">
+        <div class="absolute inset-0 bg-gold/5 group-hover:bg-gold/10 transition-colors"></div>
+        <div class="relative z-10 text-center">
+            <i class="fas fa-home text-white group-hover:text-gold text-2xl transition-colors"></i>
+            <p class="text-[8px] font-black uppercase mt-1 tracking-tighter text-gray-500 group-hover:text-white">Ballina</p>
+        </div>
+    </a>
+</div>
+
+    <main class="max-w-[1550px] mx-auto p-6 space-y-6">
+
+
+
+        <div class="bento-node p-4 border-l-4 border-gold bg-gold/5 flex items-center justify-between overflow-hidden">
+
+            <div class="flex items-center gap-4">
+
+                <span class="bg-gold text-black text-[9px] font-black px-2 py-1 rounded">LIVE UPDATE</span>
+
+                <p class="text-xs font-bold italic animate-pulse">Sistemi Metropol u përditësua. Të gjitha shërbimet janë online.</p>
+
+            </div>
+
+            <i class="fas fa-times text-[10px] opacity-20 cursor-pointer hover:opacity-100"></i>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <div class="lg:col-span-3">
+
+                <div class="bento-node p-8 flex flex-col justify-between">
+
+                    <div class="flex justify-between items-start mb-6">
+
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-gold/60 italic">Sateliti Real-Time</h3>
+
+                        <i class="fas fa-sync animate-spin text-[10px] opacity-20 text-gold"></i>
+
+                    </div>
+
+                    <div class="flex items-center gap-6">
+
+                        <span id="temp-real" class="text-6xl font-black">--°</span>
+
+                        <div class="text-[10px] font-bold uppercase italic text-gray-400 leading-tight">
+
+                            Ratkoc, Kosovë<br><span id="weather-status" class="text-white">Duke sinkronizuar...</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="lg:col-span-6">
+
+                <div class="bento-node p-8 relative overflow-hidden">
+
+                    <div class="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+
+                        <div class="flex items-center gap-3 uppercase text-green-500">
+
+                            <i class="fas fa-moon"></i>
+
+                            <h3 class="text-xs font-black tracking-widest italic">Vaktet e Namazit</h3>
+
+                        </div>
+
+                        <div id="ramadan-days" class="text-[9px] font-black bg-green-500 text-black px-4 py-1.5 rounded-full italic animate-shimmer">...</div>
+
+                    </div>
+
+                    <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">IMSAKU</p><p class="text-sm font-black">04:52</p></div>
+
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center opacity-30"><p class="text-[7px] text-gray-500 font-black">LINDJA</p><p class="text-sm font-black">06:28</p></div>
+
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">DREKA</p><p class="text-sm font-black">12:05</p></div>
+
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">IKINDIA</p><p class="text-sm font-black">14:48</p></div>
+
+                        <div class="p-3 rounded-xl bg-green-500 text-black text-center shadow-lg"><p class="text-[7px] font-black italic">AKSHAMI</p><p class="text-sm font-black">17:15</p></div>
+
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">JACIA</p><p class="text-sm font-black">18:42</p></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="lg:col-span-3">
+
+                <div class="bento-node p-6 bg-blue-500/5 border-blue-500/20 flex flex-col justify-center">
+
+                    <h3 class="text-[9px] font-black uppercase text-blue-400 mb-4 tracking-[0.2em]"><i class="fas fa-exchange-alt mr-2"></i>EUR / CHF</h3>
+
+                    <div class="space-y-3">
+
+                        <input type="number" id="eurAmount" value="100" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold focus:outline-none focus:border-blue-500">
+
+                        <div class="w-full bg-blue-500/10 border border-blue-500/20 rounded-xl p-3 text-sm font-black text-blue-400 text-center" id="chfResult">104.50 CHF</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <div class="lg:col-span-7">
+
+                <div id="mergata-section" class="bento-node p-8 bg-gradient-to-br from-blue-900/20 to-black border-blue-500/10">
+
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+
+                        <div class="text-center md:text-left">
+
+                            <h3 class="text-[10px] font-black uppercase text-gold tracking-[0.3em] mb-2">Sezoni i Verës</h3>
+
+                            <h2 class="text-3xl font-black italic italic leading-none">ARRDHJA E MËRGATËS</h2>
+
+                            <p class="text-[10px] text-gray-500 font-bold mt-2 uppercase tracking-widest">Target: 22 Korrik</p>
+
+                        </div>
+
+                        <div class="flex gap-3">
+
+                            <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/10 min-w-[70px]">
+
+                                <p id="days-to-mergata" class="text-2xl font-black">--</p>
+
+                                <p class="text-[8px] text-gray-500 font-black uppercase">Ditë</p>
+
+                            </div>
+
+                            <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/10 min-w-[70px]">
+
+                                <p id="hours-to-mergata" class="text-2xl font-black">--</p>
+
+                                <p class="text-[8px] text-gray-500 font-black uppercase">Orë</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="lg:col-span-5">
+
+                <div id="eko-sector" class="bento-node p-8 border-l-4 border-green-500 bg-gradient-to-br from-green-600/10 via-black to-black">
+
+                    <div class="flex items-center gap-4 mb-4">
+
+                        <div class="h-12 w-12 bg-white rounded-xl flex items-center justify-center text-green-600">
+
+                            <i class="fas fa-truck-moving text-xl animate-float"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-lg font-black italic text-white uppercase leading-none">Eko Drinia <span class="text-green-500 text-xs">SH.A.</span></h3>
+
+                            <p class="text-[8px] text-gray-500 font-black uppercase">Mbeturinat: Ratkoc</p>
+
+                        </div>
+
+                    </div>
+
+                    <div id="day-box" class="bg-green-600 text-black p-3 rounded-2xl text-center font-black italic text-sm">
+
+                        SECILËN TË PREMTE - ORA 08:00
+
+                    </div>
+
+                    <div id="eko-alert" class="hidden mt-4 p-3 bg-yellow-500 text-black rounded-xl text-[10px] font-black uppercase animate-pulse">
+
+                        ⚠️ NXIRRNI KONTEJNERËT SONTE!
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="bento-node p-10 bg-card border-gold/10">
+
+            <div class="flex justify-between items-end mb-10">
+
+                <div>
+
+                    <h2 class="text-5xl font-black italic tracking-tighter leading-none text-white">E-RATKOCI</h2>
+
+                    <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.5em] mt-3 italic">Integrated e-Kosova Portal</p>
+
+                </div>
+
+                <div class="hidden md:flex gap-3">
+
+                    <div class="bg-gold/10 text-gold px-4 py-2 rounded-xl border border-gold/20 text-[10px] font-black uppercase italic">V16 Hyper-Dynamic</div>
+
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+
+                <a href="https://ekosova.rks-gov.net/Service/1" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-gold hover:text-black transition-all group">
+
+                    <i class="fas fa-id-card text-2xl mb-3 text-gold group-hover:text-black"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Certifikata</h4>
+
+                </a>
+
+                <a href="https://ekosova.rks-gov.net/Service/5" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-blue-600 transition-all group">
+
+                    <i class="fas fa-landmark text-2xl mb-3 text-blue-500 group-hover:text-white"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Tatimi</h4>
+
+                </a>
+
+                <a href="https://vjosa.keds-energy.com/payments/" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-yellow-500 transition-all group">
+
+                    <i class="fas fa-bolt text-2xl mb-3 text-yellow-500 group-hover:text-black"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Energjia</h4>
+
+                </a>
+
+                <a href="https://kru-gjakova.com/online-payment/" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-cyan-500 transition-all group">
+
+                    <i class="fas fa-tint text-2xl mb-3 text-cyan-500 group-hover:text-black"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Ujësjellësi</h4>
+
+                </a>
+
+                <a href="https://ekosova.rks-gov.net/Service/2" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-red-600 transition-all group">
+
+                    <i class="fas fa-shield-alt text-2xl mb-3 text-red-500 group-hover:text-white"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Gjobat</h4>
+
+                </a>
+
+                <a href="https://ekosova.rks-gov.net/Service/10" target="_blank" class="p-6 rounded-[2rem] border border-white/5 text-center hover:bg-green-600 transition-all group">
+
+                    <i class="fas fa-seedling text-2xl mb-3 text-green-500 group-hover:text-white"></i>
+
+                    <h4 class="text-[10px] font-black uppercase">Bujqësia</h4>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="directory" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="bento-node p-8 border-t-2 border-gold/30">
+
+                <h3 class="text-gold font-black text-xs uppercase mb-6 italic"><i class="fas fa-utensils mr-2"></i>Gastronomia</h3>
+
+                <ul class="text-sm space-y-4 opacity-80">
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Kafiteri:</span><br>S Newborn, Arti, New York, Morina</li>
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Restorante:</span><br>Ermali, Kuksi, Dollari, Dina H</li>
+
+                    <li class="pt-4 border-t border-white/5 text-[10px] text-green-500 font-black italic animate-pulse">● STATUSI: TË GJITHA HAPUR</li>
+
+                </ul>
+
+            </div>
+
+            <div class="bento-node p-8 border-t-2 border-blue-500/30">
+
+                <h3 class="text-blue-400 font-black text-xs uppercase mb-6 italic"><i class="fas fa-store mr-2"></i>Tregti & Teknollogji</h3>
+
+                <ul class="text-sm space-y-4 opacity-80">
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Markete:</span><br>Dina H,Dani,Viva Fresh Store, NTP Ratkoci</li>
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Teknikë:</span><br>IPKO,Telkos,Kujtesa,DiarTECH,Essi Camera,WU</li>
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Auto:</span><br>Mobil Shop 4+1, Xoni Petrol</li>
+
+                </ul>
+
+            </div>
+
+            <div class="bento-node p-8 border-t-2 border-purple-500/30">
+
+                <h3 class="text-purple-400 font-black text-xs uppercase mb-6 italic"><i class="fas fa-tools mr-2"></i>Zanatë & Bujqësi</h3>
+
+                <ul class="text-sm space-y-4 opacity-80">
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Frizer:</span><br>Bimi,Albani,Lendi,Nisi,Nivea,Vali,Përparimi</li>
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Ekspertë:</span><br>Agronomët Drinasi & Bledi</li>
+
+                    <li><span class="text-gray-500 font-bold uppercase text-[10px]">Prodhim:</span><br>Sharri Lux, Ratkoci Plast, Dina T</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <div class="bento-node p-8 border-l-4 border-blue-600 bg-gradient-to-r from-blue-600/5 to-transparent">
+
+                <h3 class="text-blue-500 font-black text-[10px] uppercase tracking-widest mb-6 italic">Linjat e Autobusave</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                    <div class="p-4 bg-white/5 rounded-2xl"><span class="block text-[10px] text-gray-500 font-black uppercase">Gjakovë</span><span class="text-sm font-black text-blue-400">06:59 | 11:54 | 16:09</span></div>
+
+                    <div class="p-4 bg-white/5 rounded-2xl"><span class="block text-[10px] text-gray-500 font-black uppercase">Prizren</span><span class="text-sm font-black text-blue-400">06:24 | 08:10 | 08:30 | 09:20 | 09:55 | 11:45 | 12:50 | 14:00 | 15:30 | 16:20 | 16:40 </span></div>
+
+                    <div class="p-4 bg-white/5 rounded-2xl"><span class="block text-[10px] text-gray-500 font-black uppercase">Prishtinë</span><span class="text-sm font-black text-blue-400">07:00 | 12:00</span></div>
+
+                </div>
+
+            </div>
+
+            <div class="bento-node p-8 border-l-4 border-red-600 bg-gradient-to-r from-red-600/5 to-transparent">
+
+                <h3 class="text-red-500 font-black text-[10px] uppercase tracking-widest mb-6 italic">Institucionet ne Ratkoc</h3>
+
+                <div class="grid grid-cols-2 gap-3 mb-4 text-[9px] font-black uppercase">
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5">SHFMU 4 Dëshmorët</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">SHML 12 Maji</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">Zyra e Gjendjes Civile</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">Qerdhja e Fshatit Ratkoc</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">Shtepia e Kultures</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">Bibloteka</div>
+
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5 text-center">Ambulanta</div>
+
+                </div>
+
+                <a href="tel:194" class="block bg-red-600 text-white p-4 rounded-2xl text-center font-black italic shadow-lg shadow-red-600/20 hover:scale-[1.02] transition-transform uppercase">
+
+                    Ambulanca: 194 
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="bento-node p-10 bg-gradient-to-b from-card to-black border-gold/10">
+
+            <div class="flex justify-between items-center mb-10">
+
+                <div class="flex items-center gap-4">
+
+                    <h2 class="text-4xl font-black italic text-gold tracking-tighter">PORTALI Ratkoci TV</h2>
+
+                    <span class="flex h-2 w-2 rounded-full bg-red-500 animate-ping"></span>
+
+                </div>
+
+                <div class="text-[9px] font-black text-red-500 uppercase tracking-widest bg-red-500/10 px-4 py-2 rounded-full border border-red-500/20">Media Center Live</div>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <a href="https://video.gjirafa.com/drejteperdrejt" target="_blank" class="group p-8 rounded-[2rem] border border-white/5 bg-white/5 hover:border-orange-500/50 transition-all">
+
+                    <i class="fas fa-tv text-3xl text-orange-500 mb-4"></i>
+
+                    <h4 class="text-xl font-black italic">Kanale Shqip</h4>
+
+                    <p class="text-gray-400 text-[10px] mt-2 italic leading-tight uppercase tracking-widest">RTK, KTV, RTV21 Live</p>
+
+                </a>
+
+                <a href="http://huhu.to/" target="_blank" class="group p-8 rounded-[2rem] border border-white/5 bg-white/5 hover:border-blue-500/50 transition-all">
+
+                    <i class="fas fa-globe text-3xl text-blue-500 mb-4"></i>
+
+                    <h4 class="text-xl font-black italic">Kanale Televizive Nderkombtare - Filma - Sport</h4>
+                    </h4>
+
+                    <p class="text-gray-400 text-[10px] mt-2 italic leading-tight uppercase tracking-widest">Platforma HUHU.TO</p>
+
+                </a>
+
+                <a href="https://istreameast.app" target="_blank" class="group p-8 rounded-[2rem] border border-white/5 bg-white/5 hover:border-green-500/50 transition-all">
+
+                    <i class="fas fa-running text-3xl text-green-500 mb-4"></i>
+
+                    <h4 class="text-xl font-black italic">Sport Arena</h4>
+
+                    <p class="text-gray-400 text-[10px] mt-2 italic leading-tight uppercase tracking-widest">Ndeshjet e Futbollit Live</p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+    <footer class="max-w-[1550px] mx-auto p-6 text-center border-t border-white/5 opacity-40">
+
+        <p class="text-[10px] font-black uppercase tracking-[0.4em]">© 2026 METROPOL RATKOCI V16 - Hyper-Dynamic Edition</p>
+
+    </footer>
+
+
+
+    <script>
+
+        // Ora Digitale
+
+        function updateClock() { document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('sq-AL'); }
+
+        setInterval(updateClock, 1000); updateClock();
+
+
+
+        // Moti me Satelit
+
+        async function getRealWeather() {
+
+            try {
+
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.40&longitude=20.50&current_weather=true');
+
+                const data = await res.json();
+
+                document.getElementById('temp-real').innerText = Math.round(data.current_weather.temperature) + "°";
+
+                document.getElementById('weather-status').innerText = "Ratkoc, Qiell i pastër";
+
+            } catch (e) { }
+
+        } getRealWeather();
+
+
+
+        // Currency Converter
+
+        document.getElementById('eurAmount').addEventListener('input', (e) => {
+
+            const val = e.target.value;
+
+            document.getElementById('chfResult').innerText = (val * 1.045).toFixed(2) + " CHF";
+
+        });
+
+
+
+        // Search Engine
+
+        document.getElementById('mainSearch').addEventListener('keyup', (e) => {
+
+            const term = e.target.value.toLowerCase();
+
+            const cards = document.querySelectorAll('#directory > div');
+
+            cards.forEach(card => {
+
+                const text = card.innerText.toLowerCase();
+
+                card.style.display = text.includes(term) ? 'block' : 'none';
+
+            });
+
+        });
+
+
+
+        // Countdown Ramazani
+
+        function ramadanCountdown() {
+
+            const diff = new Date('February 18, 2026 00:00:00').getTime() - new Date().getTime();
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            document.getElementById('ramadan-days').innerText = days > 0 ? `EDHE ${days} DITË DERI NË RAMAZAN` : "MUAJI I RAMAZANIT";
+
+        } ramadanCountdown();
+
+
+
+        // Eko Drinia Smart Logic
+
+        function checkEkoDriniaSchedule() {
+
+            const now = new Date();
+
+            const day = now.getDay();
+
+            const hour = now.getHours();
+
+            const alertBox = document.getElementById('eko-alert');
+
+            const dayBox = document.getElementById('day-box');
+
+            if ((day === 4 && hour >= 18) || (day === 5 && hour < 9)) {
+
+                alertBox.classList.remove('hidden');
+
+                dayBox.classList.replace('bg-green-600', 'bg-yellow-500');
+
+            } else {
+
+                alertBox.classList.add('hidden');
+
+            }
+
+        } checkEkoDriniaSchedule(); setInterval(checkEkoDriniaSchedule, 600000);
+
+
+
+
+        function mergataCountdown() {
+
+            const target = new Date(`July 22, ${new Date().getFullYear()} 00:00:00`).getTime();
+
+            function update() {
+
+                const now = new Date().getTime();
+
+                const diff = target - now;
+
+                if (diff < 0) return;
+
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                document.getElementById('days-to-mergata').innerText = d;
+
+                document.getElementById('hours-to-mergata').innerText = h;
+
+            }
+
+            setInterval(update, 1000); update();
+
+        } mergataCountdown();
+
+    </script>
+
+</body>
+
+</html>
