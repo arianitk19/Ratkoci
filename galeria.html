@@ -265,7 +265,7 @@
         });
 
         document.getElementById('close-lightbox').addEventListener('click', () => {
-            gsap.to(lightboxImg, { scale: 0.9, opacity: 1, duration: 0.3, onComplete: () => {
+            gsap.to(lightboxImg, { scale: 0.9, opacity: 0, duration: 0.3, onComplete: () => {
                 lightbox.style.display = 'none';
             }});
         });
@@ -273,3 +273,4 @@
 </body>
 
 </html>
+
