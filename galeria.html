@@ -232,7 +232,7 @@
             tl.to("#header-sub", { opacity: 1, y: 0, duration: 0.8 })
               .to("#header-title", { opacity: 1, y: 0, duration: 1, ease: "power4.out" }, "-=0.4")
               .to("#filters", { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
-              .from(".gallery-card", { opacity: 0, scale: 0.9, y: 30, stagger: 0.1, duration: 0.8, ease: "power2.out" }, "-=0.4");
+              .from(".gallery-card", { opacity: 1, scale: 0.9, y: 30, stagger: 0.1, duration: 0.8, ease: "power2.out" }, "-=0.4");
         };
 
         // Filtering Logic
@@ -247,7 +247,7 @@
                     if (filter === 'all' || card.classList.contains(filter)) {
                         gsap.to(card, { opacity: 1, scale: 1, duration: 0.4, display: 'block' });
                     } else {
-                        gsap.to(card, { opacity: 0, scale: 0.8, duration: 0.4, display: 'none' });
+                        gsap.to(card, { opacity: 1, scale: 0.8, duration: 0.4, display: 'none' });
                     }
                 });
             });
@@ -260,7 +260,7 @@
             card.addEventListener('click', () => {
                 lightboxImg.src = card.dataset.img;
                 lightbox.style.display = 'flex';
-                gsap.fromTo(lightboxImg, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.2)" });
+                gsap.fromTo(lightboxImg, { scale: 0.9, opacity: 1 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.2)" });
             });
         });
 
@@ -273,5 +273,6 @@
 </body>
 
 </html>
+
 
 
