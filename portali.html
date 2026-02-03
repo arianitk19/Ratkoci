@@ -95,11 +95,23 @@
     </header>
 
 <div class="fixed bottom-8 left-8 z-[999]">
-    <a href="index.html" class="h-20 w-20 bg-black border-2 border-white/10 rounded-2xl flex items-center justify-center shadow-2xl hover:border-gold hover:scale-110 transition-all group overflow-hidden">
-        <div class="absolute inset-0 bg-gold/5 group-hover:bg-gold/10 transition-colors"></div>
-        <div class="relative z-10 text-center">
-            <i class="fas fa-home text-white group-hover:text-gold text-2xl transition-colors"></i>
-            <p class="text-[8px] font-black uppercase mt-1 tracking-tighter text-gray-500 group-hover:text-white">Ballina</p>
+    <a href="index.html" class="relative group flex items-center justify-center">
+        <div class="absolute inset-0 bg-gold/20 blur-2xl rounded-full group-hover:bg-gold/40 transition-all duration-500"></div>
+        
+        <div class="relative h-16 w-16 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-gold/50 group-hover:-translate-y-2 group-active:scale-90 shadow-2xl">
+            
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            
+            <div class="flex flex-col items-center justify-center z-10">
+                <i class="fas fa-home text-xl text-gray-400 group-hover:text-gold transition-colors duration-300"></i>
+                <span class="text-[7px] font-black uppercase tracking-[0.2em] mt-1.5 text-gray-500 group-hover:text-white transition-colors">Ballina</span>
+            </div>
+
+            <div class="absolute left-0 top-0 h-full w-[2px] bg-gold opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+
+        <div class="absolute left-20 bg-gold text-black text-[9px] font-black px-3 py-1.5 rounded-lg opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap italic shadow-lg shadow-gold/20">
+            KTHEHU NË FILLIM
         </div>
     </a>
 </div>
@@ -123,6 +135,32 @@
         </div>
 
 
+<button onclick="openAI()" class="bento-node p-6 flex flex-col items-center">
+    <i class="fas fa-robot text-gold text-2xl mb-2"></i>
+    <span class="text-[10px] font-black italic">HAP ASISTENTIN ME ZË</span>
+</button>
+
+
+<div id="ai-overlay" class="fixed inset-0 z-[9999] bg-black/98 backdrop-blur-3xl flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none">
+    
+    <button id="close-ai-btn" class="absolute top-10 right-10 h-14 w-14 bg-white/5 rounded-full flex items-center justify-center border border-white/10 hover:bg-red-600 transition-all z-[10000]">
+        <i class="fas fa-times text-2xl text-white"></i>
+    </button>
+
+    <div class="relative flex items-center justify-center scale-75 md:scale-100">
+        <div class="absolute w-[300px] h-[300px] bg-gold/20 rounded-full animate-ping"></div>
+        <div id="ai-pulse" class="relative w-48 h-48 bg-black border-4 border-gold rounded-full flex items-center justify-center shadow-[0_0_100px_rgba(212,175,55,0.5)] z-20">
+            <i class="fas fa-microphone text-6xl text-gold" id="mic-icon"></i>
+        </div>
+    </div>
+
+    <div class="mt-16 text-center px-10">
+        <p id="ai-status-text" class="text-gold font-black text-xs uppercase tracking-[0.8em] mb-4 opacity-60">Sistemi gati</p>
+        <h2 id="ai-realtime-text" class="text-2xl md:text-5xl font-bold italic text-white max-w-5xl leading-tight">
+            Klikoni mikrofonin dhe flisni...
+        </h2>
+    </div>
+</div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
@@ -156,45 +194,51 @@
 
 
 
-            <div class="lg:col-span-6">
-
-                <div class="bento-node p-8 relative overflow-hidden">
-
-                    <div class="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-
-                        <div class="flex items-center gap-3 uppercase text-green-500">
-
-                            <i class="fas fa-moon"></i>
-
-                            <h3 class="text-xs font-black tracking-widest italic">Vaktet e Namazit</h3>
-
-                        </div>
-
-                        <div id="ramadan-days" class="text-[9px] font-black bg-green-500 text-black px-4 py-1.5 rounded-full italic animate-shimmer">...</div>
-
-                    </div>
-
-                    <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
-
-                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">IMSAKU</p><p class="text-sm font-black">04:52</p></div>
-
-                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center opacity-30"><p class="text-[7px] text-gray-500 font-black">LINDJA</p><p class="text-sm font-black">06:28</p></div>
-
-                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">DREKA</p><p class="text-sm font-black">12:05</p></div>
-
-                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">IKINDIA</p><p class="text-sm font-black">14:48</p></div>
-
-                        <div class="p-3 rounded-xl bg-green-500 text-black text-center shadow-lg"><p class="text-[7px] font-black italic">AKSHAMI</p><p class="text-sm font-black">17:15</p></div>
-
-                        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-center"><p class="text-[7px] text-gray-500 font-black">JACIA</p><p class="text-sm font-black">18:42</p></div>
-
-                    </div>
-
-                </div>
-
+          <div class="lg:col-span-6">
+    <div class="bento-node p-8 relative overflow-hidden border border-white/5">
+        <div class="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+            <div class="flex items-center gap-3 uppercase text-gold">
+                <i class="fas fa-moon animate-float"></i>
+                <h3 class="text-xs font-black tracking-widest italic">Vaktet e Namazit - Ratkoc</h3>
             </div>
+            <div id="ramadan-days" class="text-[9px] font-black bg-gold text-black px-4 py-1.5 rounded-full italic animate-shimmer">
+                Duke u ngarkuar...
+            </div>
+        </div>
 
-
+        <div id="prayer-times-container" class="grid grid-cols-3 md:grid-cols-6 gap-2">
+            <div id="vakti-Fajr" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Imsaku</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+            <div id="vakti-Sunrise" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Lindja</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+            <div id="vakti-Dhuhr" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Dreka</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+            <div id="vakti-Asr" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Ikindia</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+            <div id="vakti-Maghrib" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Akshami</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+            <div id="vakti-Isha" class="prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center transition-all duration-500">
+                <p class="text-[7px] text-gray-500 font-black uppercase">Jacia</p>
+                <p class="time text-sm font-black">--:--</p>
+            </div>
+        </div>
+        
+        <div class="mt-4 flex justify-between items-center opacity-30">
+             <p id="hijri-date" class="text-[8px] font-black uppercase italic tracking-widest">--/--/----</p>
+             <i class="fas fa-mosque text-[10px]"></i>
+        </div>
+    </div>
+</div>
 
             <div class="lg:col-span-3">
 
@@ -288,7 +332,7 @@
 
                     <div id="day-box" class="bg-green-600 text-black p-3 rounded-2xl text-center font-black italic text-sm">
 
-                        SECILËN TË PREMTE - ORA 08:00
+                        SECILËN TË PREMTE - ORA 07:00
 
                     </div>
 
@@ -304,6 +348,52 @@
 
         </div>
 
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+    
+    <div class="lg:col-span-4 bento-node p-8 bg-gradient-to-br from-gold/10 to-transparent border-gold/20">
+        <div class="flex items-center gap-3 mb-6">
+            <i class="fas fa-piggy-bank text-gold text-2xl"></i>
+            <h3 class="text-xs font-black uppercase tracking-widest italic">Trusti Pensional (10%)</h3>
+        </div>
+        <div class="space-y-4">
+            <p class="text-[10px] text-gray-400 font-bold uppercase italic">Llogarit 10% e kursimeve tua:</p>
+            <input type="number" id="trustInput" placeholder="Shuma totale..." class="search-input w-full py-3 px-4 rounded-xl text-sm font-bold">
+            <div id="trustResult" class="p-4 bg-gold text-black rounded-xl text-center font-black text-lg shadow-lg">
+                0.00 €
+            </div>
+            <a href="https://www.trusti.org" target="_blank" class="block text-center text-[9px] font-black text-gold hover:underline uppercase tracking-tighter">Vizito faqen zyrtare të Trustit →</a>
+        </div>
+    </div>
+
+    <div class="lg:col-span-8 bento-node p-8">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-3 text-red-500">
+                <i class="fas fa-newspaper text-xl"></i>
+                <h3 class="text-xs font-black uppercase tracking-widest italic text-white">Lajmet e fundit - Kosovë</h3>
+            </div>
+            <span class="text-[8px] bg-red-600 px-2 py-1 rounded font-black animate-pulse">LIVE</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="https://www.koha.net" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5">
+                <span class="text-sm font-black italic">KOHA</span>
+                <p class="text-[8px] text-gray-500 uppercase mt-1">Lajme & Analiza</p>
+            </a>
+            <a href="https://telegrafi.com" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5">
+                <span class="text-sm font-black italic text-blue-400">Telegrafi</span>
+                <p class="text-[8px] text-gray-500 uppercase mt-1">Shtypi i Ditës</p>
+            </a>
+            <a href="https://www.gazetaexpress.com" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5">
+                <span class="text-sm font-black italic text-red-500">Express</span>
+                <p class="text-[8px] text-gray-500 uppercase mt-1">Ekskluzive</p>
+            </a>
+             <a href="https://klankosova.tv" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5">
+                <span class="text-sm font-black italic text-orange-500">Klan Kosova</span>
+                <p class="text-[8px] text-gray-500 uppercase mt-1">Video & Lajme</p>
+            </a>
+        </div>
+    </div>
+</div>
 
 
         <div class="bento-node p-10 bg-card border-gold/10">
@@ -542,6 +632,35 @@
         </div>
 
 
+<div id="ai-overlay" class="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none">
+    
+    <button onclick="closeAI()" class="absolute top-10 right-10 text-white/50 hover:text-gold transition-all">
+        <i class="fas fa-times text-3xl"></i>
+    </button>
+
+    <div class="relative flex items-center justify-center">
+        <div class="absolute w-[300px] h-[300px] bg-gold/10 rounded-full animate-ping"></div>
+        <div class="absolute w-[450px] h-[450px] border border-gold/5 rounded-full animate-[spin_10s_linear_infinite]"></div>
+        
+        <div id="ai-sphere" class="relative w-40 h-40 bg-black border-4 border-gold rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(212,175,55,0.4)] z-20">
+            <i class="fas fa-microphone text-5xl text-gold animate-pulse"></i>
+        </div>
+    </div>
+
+    <div class="mt-20 text-center px-6">
+        <h2 id="ai-status-text" class="text-gold font-black text-xs uppercase tracking-[0.6em] mb-4">Duke dëgjuar...</h2>
+        <p id="ai-realtime-text" class="text-2xl md:text-4xl font-light italic text-white/80 max-w-4xl leading-relaxed">
+            "Folni, jam duke ju dëgjuar..."
+        </p>
+    </div>
+
+    <div class="absolute bottom-20 flex gap-4 overflow-x-auto px-10 no-scrollbar">
+        <div class="px-6 py-3 border border-white/10 rounded-full text-[10px] font-black text-gray-400 uppercase italic">Kur vjen autobusi?</div>
+        <div class="px-6 py-3 border border-white/10 rounded-full text-[10px] font-black text-gray-400 uppercase italic">Moti në Ratkoc</div>
+        <div class="px-6 py-3 border border-white/10 rounded-full text-[10px] font-black text-gray-400 uppercase italic">Lajmëro defekt</div>
+    </div>
+</div>
+
 
     </main>
 
@@ -556,6 +675,75 @@
 
 
     <script>
+
+
+async function fetchPrayerTimes() {
+    try {
+        // Koordinatat për Ratkoc (afërsisht Rahovec)
+        const lat = 42.40;
+        const lon = 20.50;
+        const method = 3; // Muslim World League
+
+        const response = await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=${method}`);
+        const data = await response.json();
+        const timings = data.data.timings;
+        const hijri = data.data.date.hijri;
+
+        // Përditëso datën Hixhri
+        document.getElementById('hijri-date').innerText = `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+
+        // Mapimi i vakteve
+        const prayerMap = {
+            'Fajr': timings.Fajr,
+            'Sunrise': timings.Sunrise,
+            'Dhuhr': timings.Dhuhr,
+            'Asr': timings.Asr,
+            'Maghrib': timings.Maghrib,
+            'Isha': timings.Isha
+        };
+
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+
+        let currentVakt = "";
+
+        Object.keys(prayerMap).forEach((key, index, array) => {
+            const element = document.getElementById(`vakti-${key}`);
+            const timeStr = prayerMap[key];
+            element.querySelector('.time').innerText = timeStr;
+
+            // Kalkulimi për vaktin aktiv
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const vaktMinutes = hours * 60 + minutes;
+
+            // Reset style
+            element.className = "prayer-card p-3 rounded-xl bg-white/5 border border-white/5 text-center opacity-40 transition-all duration-500";
+
+            // Gjetja e vaktit aktual (logjika: nese ora aktuale është pas këtij vakti por para vaktit tjetër)
+            if (currentTime >= vaktMinutes) {
+                currentVakt = key;
+            }
+        });
+
+        // Nëse jemi pas Jacisë ose para Imsakut, vakti aktiv është Isha ose Fajr
+        if (!currentVakt) currentVakt = "Isha"; 
+
+        // Style vaktin aktiv
+        const activeElement = document.getElementById(`vakti-${currentVakt}`);
+        if (activeElement) {
+            activeElement.className = "prayer-card p-3 rounded-xl bg-gold text-black text-center shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105 z-10 font-bold";
+            activeElement.querySelector('p').classList.replace('text-gray-500', 'text-black/70');
+        }
+
+    } catch (error) {
+        console.error("Gabim në marrjen e vakteve:", error);
+    }
+}
+
+// Thirr funksionin
+fetchPrayerTimes();
+// Rifresko çdo 5 minuta për saktësi
+setInterval(fetchPrayerTimes, 300000);
 
         // Ora Digitale
 
@@ -616,18 +804,49 @@
         });
 
 
+// Countdown Ramazani V16 Elite - Dynamic Logic
+function ramadanCountdown() {
+    const targetDate = new Date('February 18, 2026 00:00:00').getTime();
+    
+    const updateCountdown = () => {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
 
-        // Countdown Ramazani
-
-        function ramadanCountdown() {
-
-            const diff = new Date('February 18, 2026 00:00:00').getTime() - new Date().getTime();
-
+        const element = document.getElementById('ramadan-days');
+        
+        if (diff > 0) {
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-            document.getElementById('ramadan-days').innerText = days > 0 ? `EDHE ${days} DITË DERI NË RAMAZAN` : "MUAJI I RAMAZANIT";
+            // Formatimi: tregon ditët dhe orët për saktësi maksimale
+            element.innerText = `EDHE ${days} DITË & ${hours} ORË DERI NË RAMAZAN`;
+            
+            // Ndryshimi i ngjyrës nëse jemi shumë afër (p.sh. 3 ditët e fundit)
+            if (days <= 3) {
+                element.classList.replace('bg-green-500', 'bg-red-600');
+                element.classList.add('animate-pulse');
+            }
+        } else {
+            // Logjika gjatë muajit të Ramazanit
+            const endRamadan = new Date('March 20, 2026 00:00:00').getTime();
+            if (now < endRamadan) {
+                element.innerText = "MUAJI I SHENJTË I RAMAZANIT 🌙";
+                element.classList.replace('bg-gold', 'bg-green-600');
+            } else {
+                element.innerText = "ME FAT BAJRAMIN! ✨";
+                element.classList.replace('bg-green-600', 'bg-gold');
+            }
+        }
+    };
 
-        } ramadanCountdown();
+    // Update çdo minutë që të jetë gjithmonë i saktë
+    updateCountdown();
+    setInterval(updateCountdown, 60000); 
+}
+
+// Thirrja e funksionit
+ramadanCountdown();
 
 
 
@@ -687,6 +906,161 @@
             setInterval(update, 1000); update();
 
         } mergataCountdown();
+
+
+
+
+
+
+
+// Llogaritja e Trustit 10%
+document.getElementById('trustInput').addEventListener('input', (e) => {
+    const total = e.target.value;
+    const tenPercent = total * 0.10;
+    document.getElementById('trustResult').innerText = tenPercent.toFixed(2) + " €";
+});
+
+
+
+
+
+// Funksionet për AI Concierge 100% Fullscreen
+function openAI() {
+    const overlay = document.getElementById('ai-overlay');
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-all');
+    
+    // Filloni dëgjimin automatikisht
+    startListening();
+}
+
+function closeAI() {
+    const overlay = document.getElementById('ai-overlay');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-all');
+}
+
+function startListening() {
+    const statusText = document.getElementById('ai-status-text');
+    const transcriptText = document.getElementById('ai-realtime-text');
+    
+    // Kontrolloni nëse browseri e suporton Speech Recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'sq-AL'; // E vendosim në Shqip
+        
+        recognition.onstart = () => {
+            statusText.innerText = "Sistemi është aktiv...";
+        };
+        
+        recognition.onresult = (event) => {
+            const result = event.results[0][0].transcript;
+            transcriptText.innerText = `"${result}"`;
+            
+            // Këtu mund të shtosh logjikën e përgjigjeve
+            if(result.toLowerCase().includes("autobus")) {
+                setTimeout(() => { alert("Duke kërkuar orarin e autobusave..."); closeAI(); }, 1000);
+            }
+        };
+
+        recognition.onerror = () => {
+            statusText.innerText = "Gabim! Provojeni përsëri.";
+        };
+
+        recognition.start();
+    } else {
+        transcriptText.innerText = "Browseri juaj nuk e suporton dëgjimin me zë.";
+    }
+}
+
+
+
+const overlay = document.getElementById('ai-overlay');
+const closeBtn = document.getElementById('close-ai-btn');
+const statusText = document.getElementById('ai-status-text');
+const transcriptText = document.getElementById('ai-realtime-text');
+const micIcon = document.getElementById('mic-icon');
+
+// FUNKSIONI PËR HAPJE
+function openAI() {
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100', 'pointer-events-auto');
+    startListening();
+}
+
+// FUNKSIONI PËR MBYLLJE (Garantuar)
+function closeAI() {
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    overlay.classList.remove('opacity-100', 'pointer-events-auto');
+    // Ndalojmë dëgjimin nëse është aktiv
+    if (window.recognition) {
+        window.recognition.stop();
+    }
+}
+
+// Event Listener për butonin e mbylljes
+closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeAI();
+});
+
+// LOGJIKA E DËGJIMIT
+function startListening() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+        transcriptText.innerText = "Browseri juaj nuk e suporton këtë teknologji.";
+        return;
+    }
+
+    window.recognition = new SpeechRecognition();
+    const recognition = window.recognition;
+    recognition.lang = 'sq-AL';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+        statusText.innerText = "Duke dëgjuar...";
+        micIcon.classList.add('animate-pulse');
+        transcriptText.innerText = "Ju dëgjoj, flisni...";
+    };
+
+    recognition.onresult = (event) => {
+        const command = event.results[0][0].transcript.toLowerCase();
+        transcriptText.innerText = `"${command}"`;
+        micIcon.classList.remove('animate-pulse');
+
+        // NAVIGIMI SMART
+        if (command.includes("autobus") || command.includes("orar")) {
+            statusText.innerText = "Duke hapur oraret...";
+            setTimeout(() => {
+                window.location.hash = "bus-section"; // Sigurohu që seksoni i busit të ketë id="bus-section"
+                closeAI();
+            }, 1500);
+        } 
+        else if (command.includes("namaz") || command.includes("vakt")) {
+            statusText.innerText = "Duke hapur vaktet...";
+            setTimeout(() => { closeAI(); }, 1500);
+        }
+        else if (command.includes("moti")) {
+            statusText.innerText = "Duke treguar motin...";
+            setTimeout(() => { closeAI(); }, 1500);
+        }
+        else {
+            statusText.innerText = "Komandë e panjohur";
+        }
+    };
+
+    recognition.onerror = () => {
+        statusText.innerText = "Gabim gjatë dëgjimit.";
+        micIcon.classList.remove('animate-pulse');
+    };
+
+    recognition.start();
+}
+
 
     </script>
 
