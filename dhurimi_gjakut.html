@@ -17,7 +17,12 @@
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     colors: {
-                        ratkoc: { gold: '#D9B969', blood: '#BC0000', darker: '#050505' }
+                        ratkoc: { 
+                            gold: '#D9B969', 
+                            blood: '#BC0000', 
+                            darker: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)' 
+                        }
                     }
                 }
             }
@@ -25,10 +30,15 @@
     </script>
 
     <style>
-        body { background-color: #050505; color: #fff; overflow-x: hidden; }
-        .glass-nav { backdrop-filter: blur(30px); background: rgba(5, 5, 5, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        body { background-color: #050505; color: #fff; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         
-        /* Butoni Pulse - Konsistent në çdo faqe */
+        .glass-nav {
+            backdrop-filter: blur(30px);
+            background: rgba(5, 5, 5, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Butoni Pulse - Konsistent */
         .btn-blood-pulse {
             animation: pulse-red 2s infinite;
             background: #BC0000;
@@ -39,27 +49,41 @@
             100% { box-shadow: 0 0 0 0 rgba(188, 0, 0, 0); }
         }
 
+        /* Mobile Menu Overlay me Clip-Path (Sikur te kodi i pare) */
         #mobile-menu-overlay {
             clip-path: circle(0% at 95% 5%);
             transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1);
-            background: #050505;
+            background: linear-gradient(135deg, #050505 0%, #0a0a0b 100%);
+            pointer-events: none;
         }
-        #mobile-menu-overlay.active { clip-path: circle(150% at 95% 5%); }
-        
+        #mobile-menu-overlay.active { 
+            clip-path: circle(150% at 95% 5%); 
+            pointer-events: all;
+        }
+
         .bento-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 2rem;
             transition: all 0.4s ease;
         }
-        .bento-card:hover { border-color: #BC0000; transform: translateY(-5px); background: rgba(188, 0, 0, 0.03); }
-        
+        .bento-card:hover { 
+            border-color: #BC0000; 
+            transform: translateY(-5px); 
+            background: rgba(188, 0, 0, 0.03); 
+        }
+
         .gradient-blood {
             background: linear-gradient(to right, #BC0000, #fff, #BC0000);
             -webkit-background-clip: text; background-clip: text; color: transparent;
             background-size: 200% auto; animation: shine 5s linear infinite;
         }
         @keyframes shine { to { background-position: 200% center; } }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #BC0000; border-radius: 10px; }
+        
+        .nav-link-active { color: #D9B969 !important; pointer-events: none; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -67,33 +91,58 @@
     <nav class="glass-nav fixed w-full z-[200] px-6 py-5">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="index.html" class="text-2xl font-extrabold tracking-tighter flex items-center gap-3">
-                <div class="w-10 h-10 bg-ratkoc-blood rounded-xl flex items-center justify-center text-white font-bold">R</div>
-                <span>RATKOCI</span>
+                <div class="w-10 h-10 bg-ratkoc-blood rounded-xl flex items-center justify-center text-white font-bold transform hover:rotate-12 transition">R</div>
+                <span class="hidden sm:inline">RATKOCI</span>
             </a>
-            <div class="flex items-center gap-4">
-                <a href="dhurimi_gjakut.html" class="btn-blood-pulse px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+
+            <div class="flex items-center gap-6">
+                <a href="dhurimi_gjakut.html" class="btn-blood-pulse hidden lg:flex px-6 py-2.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest items-center gap-2">
                     <i class="fas fa-droplet"></i> 5 Shkurti
                 </a>
-                <button id="menu-btn" class="relative z-[210] flex flex-col gap-1.5 p-2">
-                    <div id="bar1" class="w-8 h-0.5 bg-white transition-all"></div>
-                    <div id="bar2" class="w-6 h-0.5 bg-ratkoc-gold ml-auto transition-all"></div>
-                    <div id="bar3" class="w-8 h-0.5 bg-white transition-all"></div>
+                
+                <button id="menu-btn" class="relative z-[210] flex flex-col gap-1.5 p-2 outline-none">
+                    <div id="bar1" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
+                    <div id="bar2" class="w-6 h-0.5 bg-ratkoc-gold ml-auto transition-all duration-300"></div>
+                    <div id="bar3" class="w-8 h-0.5 bg-white transition-all duration-300"></div>
                 </button>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu-overlay" class="fixed inset-0 z-[150] flex flex-col justify-center px-10">
-        <nav class="flex flex-col space-y-4">
-            <a href="index.html" class="text-5xl font-black hover:text-ratkoc-gold transition">BALLINA</a>
-            <a href="gjeografia.html" class="text-5xl font-black hover:text-ratkoc-gold transition">GJEOGRAFIA</a>
-            <a href="ekonomia.html" class="text-5xl font-black hover:text-ratkoc-gold transition">EKONOMIA</a>
-            <a href="agrokultura.html" class="text-5xl font-black hover:text-ratkoc-gold transition">AGROKULTURA</a>
-            <a href="transporti.html" class="text-5xl font-black hover:text-ratkoc-gold transition">TRANSPORTI</a>
-            <a href="vizito.html" class="text-5xl font-black hover:text-ratkoc-gold transition">VIZITO</a>
-            <a href="galeria.html" class="text-5xl font-black hover:text-ratkoc-gold transition">GALERIA</a>
-            <a href="kontakti.html" class="text-5xl font-black hover:text-ratkoc-gold transition">KONTAKTI</a>
-        </nav>
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[150] flex flex-col justify-center px-8 md:px-20 overflow-y-auto custom-scroll py-24">
+        <div class="grid lg:grid-cols-2 gap-10 w-full max-w-7xl mx-auto">
+            <div class="flex flex-col space-y-2">
+                <p class="text-ratkoc-gold text-[10px] font-bold tracking-[0.5em] mb-4 uppercase">Eksploro Ratkocin</p>
+                <nav class="flex flex-col space-y-1">
+                    <a href="index.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">BALLINA</a>
+                    <a href="gjeografia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GJEOGRAFIA</a>
+                    <a href="agrokultura.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">EKONOMIA</a>
+                    <a href="historia.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">HISTORIA</a>
+                    <a href="komuniteti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KOMUNITETI</a>
+                    <a href="transporti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">TRANSPORTI</a>
+                    <a href="vizito.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">VIZITO</a>
+                    <a href="galeria.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">GALERIA</a>
+                    <a href="kontakti.html" class="text-4xl md:text-7xl font-black text-white/40 hover:text-ratkoc-gold transition-all duration-300 transform hover:translate-x-4">KONTAKTI</a>
+                </nav>
+                <div class="pt-8 block lg:hidden">
+                    <a href="dhurimi_gjakut.html" class="text-ratkoc-blood font-bold tracking-widest text-xs border-b border-ratkoc-blood/30 pb-2">DHURIMI I GJAKUT →</a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex flex-col justify-center space-y-10 border-l border-white/5 pl-20">
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Lokacioni</h4>
+                    <p class="text-gray-400 text-xl font-light leading-relaxed">Rahovec, 21000<br>Republika e Kosovës</p>
+                </div>
+                <div>
+                    <h4 class="text-ratkoc-gold font-bold mb-4 uppercase text-xs tracking-widest">Social Media</h4>
+                    <div class="flex gap-6 text-2xl">
+                        <a href="#"><i class="fab fa-facebook-f hover:text-ratkoc-gold transition"></i></a>
+                        <a href="#"><i class="fab fa-instagram hover:text-ratkoc-gold transition"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <section class="relative h-[70vh] flex items-center justify-center pt-20">
@@ -142,31 +191,41 @@
     </footer>
 
     <script>
-        // Menu Script
+        // Menu Toggle Logic (Sikur te kodi i pare)
         const menuBtn = document.getElementById('menu-btn');
         const overlay = document.getElementById('mobile-menu-overlay');
         const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
 
+        // Active link highlight
+        const currentPath = window.location.pathname.split("/").pop() || "dhurimi_gjakut.html";
+        document.querySelectorAll('#mobile-menu-overlay nav a').forEach(link => {
+            if(link.getAttribute('href') === currentPath) {
+                link.classList.add('nav-link-active');
+            }
+        });
+
         menuBtn.addEventListener('click', () => {
-            overlay.classList.toggle('active');
-            if(overlay.classList.contains('active')) {
+            const isActive = overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+            
+            if(isActive) {
                 bars[0].style.transform = 'translateY(7px) rotate(45deg)';
                 bars[1].style.opacity = '0';
                 bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
             } else {
-                bars.forEach(b => { b.style.transform = 'none'; b.style.opacity = '1'; });
+                bars.forEach(bar => { bar.style.transform = 'none'; bar.style.opacity = '1'; });
             }
         });
 
-        // GSAP Animations
+        // GSAP Intro
         window.onload = () => {
             gsap.to(".hero-el", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power4.out" });
+            
             gsap.from(".bento-card", { 
                 scrollTrigger: { trigger: ".bento-card", start: "top bottom-=50" },
-                opacity: 1, y: 30, duration: 0.8, stagger: 0.1 
+                opacity: 0, y: 30, duration: 0.8, stagger: 0.1 
             });
         };
     </script>
 </body>
-
 </html>
