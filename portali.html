@@ -355,6 +355,74 @@
         </div>
 
 
+
+<div class="lg:col-span-4 bento-node p-5 bg-gradient-to-br from-green-900/20 to-black border-green-500/10">
+    <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-seedling text-green-500 text-sm"></i>
+            <h3 class="text-[10px] font-black uppercase tracking-widest text-white italic">Subvencionet 2026</h3>
+        </div>
+        <span class="text-[8px] bg-green-500/10 text-green-500 px-2 py-1 rounded-md font-bold">MBPZHR</span>
+    </div>
+
+    <div class="space-y-3">
+        <select id="kulturaAgro" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] font-bold text-white outline-none focus:border-green-500 transition-all">
+            <option value="500">Speca, Qepë, Lakra</option>
+            <option value="250">Misër (Kollomoq)</option>
+            <option value="300">Grurë, Fasule</option>
+            <option value="400">Shalqin, Pjepër</option>
+            <option value="300">Kunguj</option>
+        </select>
+
+        <div class="flex gap-2">
+            <input type="number" id="siperfaqjaAgro" placeholder="Sipërfaqja" class="w-2/3 bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold text-white outline-none focus:border-green-500">
+            <select id="njesia" class="w-1/3 bg-white/5 border border-white/10 rounded-xl px-2 text-[10px] font-black uppercase text-green-500 outline-none">
+                <option value="ari">Ari</option>
+                <option value="hektar">Ha</option>
+            </select>
+        </div>
+
+        <div class="flex items-center justify-between p-2 bg-white/5 rounded-xl border border-white/5">
+            <span class="text-[9px] font-black text-gray-400 uppercase italic">+ Rimbursimi i naftës</span>
+            <input type="checkbox" id="naftaAgro" checked class="accent-green-500 h-4 w-4">
+        </div>
+
+        <button onclick="calculateAgro()" class="w-full bg-green-600 text-black font-black py-3 rounded-xl hover:bg-green-500 transition-all uppercase italic text-[10px] shadow-lg shadow-green-900/20">
+            Llogarit Përfitimin
+        </button>
+
+        <div id="agroResult" class="hidden mt-4 pt-4 border-t border-white/5 text-center">
+            <p class="text-[9px] font-black text-gray-500 uppercase mb-1">Shuma e parashikuar:</p>
+            <h2 id="finalSum" class="text-3xl font-black text-white italic tracking-tighter">0.00€</h2>
+            <p class="text-[7px] text-gray-600 mt-2 uppercase">*Bazuar në kriteret zyrtare të vitit 2026</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function calculateAgro() {
+    const rate = parseFloat(document.getElementById('kulturaAgro').value);
+    let area = parseFloat(document.getElementById('siperfaqjaAgro').value);
+    const njesia = document.getElementById('njesia').value;
+    const includeFuel = document.getElementById('naftaAgro').checked;
+
+    if (!area || area <= 0) return;
+
+    if (njesia === 'ari') area = area / 100;
+
+    const baseAmount = rate * area;
+    const fuelAmount = includeFuel ? (area * 54.40) : 0;
+    const total = baseAmount + fuelAmount;
+
+    const resDiv = document.getElementById('agroResult');
+    resDiv.classList.remove('hidden');
+    document.getElementById('finalSum').innerText = total.toFixed(2) + "€";
+}
+</script>
+
+
+        
+
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
     
     <div class="lg:col-span-4 bento-node p-8 bg-gradient-to-br from-gold/10 to-transparent border-gold/20">
@@ -1042,5 +1110,6 @@ function updateAIUI(st, active) {
 </body>
 
 </html>
+
 
 
