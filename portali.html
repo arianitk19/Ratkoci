@@ -1045,7 +1045,7 @@ function processQuery(q) {
     let r = "Më falni, nuk ju kuptova për: " + q;
     document.getElementById('ai-realtime-text').innerText = `"${q}"`;
 
-    if (q.includes("autobus")) r = "Autobusi i radhës për Prizren kalon në ora 12:50.";
+    if (q.includes("autobus")) r = "Linjat e autobusit mund ti shikoni tek kategoria e TRANSPORTIT.";
     if (q.includes("moti") || q.includes("temperatura")) {
         const t = document.getElementById('temp-real').innerText;
         r = `Në Ratkoc temperatura është ${t}.`;
@@ -1110,6 +1110,7 @@ function updateAIUI(st, active) {
 </body>
 
 </html>
+
 
 
 
